@@ -23,6 +23,7 @@ export interface Hero {
   note?: string
   /** Present once `unlocked` is true — always exactly two options. */
   loadouts?: [Loadout, Loadout]
+  img?: string
 }
 
 export type VoteSide = 'a' | 'b'
