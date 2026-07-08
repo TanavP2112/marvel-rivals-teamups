@@ -29,6 +29,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/adam-warlock.webp',
   },
   {
     id: 'angela',
@@ -50,6 +51,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/angela.webp',
   },
   {
     id: 'black_cat',
@@ -70,6 +72,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/black-cat.webp',
   },
   {
     id: 'black_panther',
@@ -90,6 +93,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/black-panther.webp',
   },
   {
     id: 'black_widow',
@@ -111,6 +115,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/black-widow.webp',
   },
   {
     id: 'blade',
@@ -131,6 +136,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/blade.webp',
   },
   {
     id: 'captain_america',
@@ -152,6 +158,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/captain-america.webp',
   },
   {
     id: 'cloak_and_dagger',
@@ -172,6 +179,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/cloak-and-dagger.webp',
   },
   {
     id: 'cyclops',
@@ -192,6 +200,15 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/cyclops.webp',
+  },
+  {
+    id: 'daredevil',
+    name: 'Daredevil',
+    role: 'duelist',
+    unlocked: false,
+    note: 'No confirmed loadouts yet.',
+    img: '/images/daredevil.webp',
   },
   {
     id: 'deadpool',
@@ -213,6 +230,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/deadpool.webp',
   },
   {
     id: 'devil_dinosaur',
@@ -234,6 +252,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/devil-dinosaur.webp',
   },
   {
     id: 'doctor_strange',
@@ -255,6 +274,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/doctor-strange.webp',
   },
   {
     id: 'elsa_bloodstone',
@@ -275,6 +295,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/elsa-bloodstone.webp',
   },
   {
     id: 'emma_frost',
@@ -295,6 +316,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/emma-frost.webp',
   },
   {
     id: 'groot',
@@ -316,6 +338,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/groot.webp',
   },
   {
     id: 'hawkeye',
@@ -336,6 +359,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/hawkeye.webp',
   },
   {
     id: 'hela',
@@ -356,6 +380,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/hela.webp',
   },
   {
     id: 'hulk',
@@ -377,7 +402,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
-    img: '/images/hulk.png',
+    img: '/images/hulk.webp',
   },
   {
     id: 'human_torch',
@@ -398,6 +423,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/human-torch.webp',
   },
   {
     id: 'invisible_woman',
@@ -418,6 +444,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/invisible-woman.webp',
   },
   {
     id: 'iron_fist',
@@ -438,6 +465,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/iron-fist.webp',
   },
   {
     id: 'iron_man',
@@ -458,6 +486,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/iron-man.webp',
   },
   {
     id: 'jeff_the_land_shark',
@@ -478,6 +507,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/jeff-the-land-shark.webp',
   },
   {
     id: 'jubilee',
@@ -500,6 +530,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/jubilee.webp',
   },
   {
     id: 'loki',
@@ -520,6 +551,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/loki.webp',
   },
   {
     id: 'luna_snow',
@@ -540,6 +572,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/luna-snow.webp',
   },
   {
     id: 'magik',
@@ -560,6 +593,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/magik.webp',
   },
   {
     id: 'magneto',
@@ -580,6 +614,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/magneto.webp',
   },
   {
     id: 'mantis',
@@ -600,6 +635,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/mantis.webp',
   },
   {
     id: 'mister_fantastic',
@@ -620,6 +656,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/mister-fantastic.webp',
   },
   {
     id: 'moon_knight',
@@ -640,6 +677,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/moon-knight.webp',
   },
   {
     id: 'namor',
@@ -660,6 +698,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/namor.webp',
   },
   {
     id: 'peni_parker',
@@ -680,6 +719,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/peni-parker.webp',
   },
   {
     id: 'psylocke',
@@ -700,6 +740,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/psylocke.webp',
   },
   {
     id: 'rocket_raccoon',
@@ -720,6 +761,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/rocket-raccoon.webp',
   },
   {
     id: 'rogue',
@@ -741,6 +783,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/rogue.webp',
   },
   {
     id: 'scarlet_witch',
@@ -761,6 +804,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/scarlet-witch.webp',
   },
   {
     id: 'spider_man',
@@ -781,6 +825,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/spider-man.webp',
   },
   {
     id: 'squirrel_girl',
@@ -801,6 +846,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/squirrel-girl.webp',
   },
   {
     id: 'star_lord',
@@ -821,6 +867,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/star-lord.webp',
   },
   {
     id: 'storm',
@@ -841,6 +888,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/storm.webp',
   },
   {
     id: 'the_hood',
@@ -863,6 +911,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/the-hood.webp',
   },
   {
     id: 'the_punisher',
@@ -883,6 +932,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/the-punisher.webp',
   },
   {
     id: 'the_thing',
@@ -904,6 +954,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/the-thing.webp',
   },
   {
     id: 'thor',
@@ -924,6 +975,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/thor.webp',
   },
   {
     id: 'venom',
@@ -944,6 +996,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/venom.webp',
   },
   {
     id: 'winter_soldier',
@@ -964,6 +1017,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/winter-soldier.webp',
   },
   {
     id: 'wolverine',
@@ -984,6 +1038,7 @@ export const HEROES: Hero[] = [
         enhancedConfirmed: false,
       },
     ],
+    img: '/images/wolverine.webp',
   },
 ]
 

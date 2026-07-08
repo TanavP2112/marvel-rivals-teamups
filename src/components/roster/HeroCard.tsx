@@ -27,8 +27,9 @@ export function HeroCard({ hero, onSelect }: HeroCardProps) {
         </span>
       )}
 
-      <div className='mb-3.5 flex h-11 w-11 items-center justify-center rounded-[9px] border border-line bg-panel-2 text-lg'>
+      <div className='mb-3.5 flex h-20 w-20 items-center justify-center rounded-[9px] border border-line bg-panel-2 text-lg'>
         <img
+          className='h-20 w-20 rounded-[9px] object-contain'
           src={hero.img}
           alt=''
         />
