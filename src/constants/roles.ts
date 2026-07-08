@@ -8,11 +8,11 @@ export const ROLE_LABEL: Record<Role, string> = {
   strategist: 'Strategist',
 }
 
-export const ROLE_ICON: Record<Role, string> = {
-  vanguard: '🛡',
-  duelist: '⚔',
-  strategist: '✚',
-}
+// export const ROLE_ICON: Record<Role, string> = {
+//   vanguard: '🛡',
+//   duelist: '⚔',
+//   strategist: '✚',
+// }
 
 /** Tailwind background-color utility per role (role-colored edges, dots). */
 export const ROLE_BG_CLASS: Record<Role, string> = {

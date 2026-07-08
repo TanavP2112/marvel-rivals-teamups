@@ -1,10 +1,5 @@
 import clsx from 'clsx';
-import {
-  ROLE_BG_CLASS,
-  ROLE_ICON,
-  ROLE_TEXT_CLASS,
-  ROLE_LABEL,
-} from '@/constants/roles';
+import { ROLE_BG_CLASS, ROLE_TEXT_CLASS, ROLE_LABEL } from '@/constants/roles';
 import type { Hero } from '@/types/hero';
 
 interface HeroCardProps {
