@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 import { castVote, getVotes } from '@/lib/votes'
-import type { VoteSide, VoteTally } from '@/types/hero'
+import type { RankTier, VoteBreakdown, VoteSide } from '@/types/hero'
 
-const EMPTY: VoteTally = { a: 0, b: 0 }
+const EMPTY: VoteBreakdown = { overall: { a: 0, b: 0 }, byRank: {} as VoteBreakdown['byRank'] }
 
 export function useVotes(heroId: string | undefined) {
-  const [votes, setVotes] = useState<VoteTally>(EMPTY)
+  const [votes, setVotes] = useState<VoteBreakdown>(EMPTY)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -28,9 +28,9 @@ export function useVotes(heroId: string | undefined) {
   }, [heroId])
 
   const vote = useCallback(
-    async (side: VoteSide) => {
+    async (side: VoteSide, rank: RankTier) => {
       if (!heroId) return
-      const next = await castVote(heroId, side)
+      const next = await castVote(heroId, side, rank)
       setVotes(next)
     },
     [heroId],

@@ -1,46 +1,85 @@
-import type { VoteSide, VoteTally } from '@/types/hero'
+import { RANK_OPTIONS } from '@/constants/voterProfile'
+import type { RankTier, VoteBreakdown, VoteSide, VoteTally } from '@/types/hero'
 
 /**
- * Vote persistence, abstracted behind a small interface.
+ * Vote persistence, abstracted behind a small interface (same deal as
+ * `lib/voterProfile.ts` — localStorage today, swap for Supabase later).
  *
- * Today this reads/writes localStorage, which is fine for local dev but
- * is per-browser only — votes won't be shared across visitors.
- *
- * To move this onto Supabase once the backend is ready:
- *   1. Create the `hero_loadout_votes` table (see supabase/schema.sql)
- *      and the `increment_vote` RPC function defined there.
- *   2. Replace the bodies of `getVotes` / `castVote` below with calls
- *      through `supabase` from `@/lib/supabase`, e.g.
- *
- *        const { data } = await supabase
- *          .from('hero_loadout_votes')
- *          .select('side, votes')
- *          .eq('hero_id', heroId)
- *
- *        await supabase.rpc('increment_vote', { p_hero_id: heroId, p_side: side })
- *
- *   The rest of the app only talks to `useVotes` (see `@/hooks/useVotes`),
- *   so no component changes are needed when you swap this out.
+ * To move onto Supabase:
+ *   1. Add a `hero_loadout_votes` table with a `rank` column (see
+ *      supabase/schema.sql) and its `cast_vote` RPC.
+ *   2. Replace `getVotes` to select rows for a hero and group by (side, rank).
+ *   3. Replace `castVote` to call `cast_vote` with { p_hero_id, p_side, p_rank }.
+ *   Nothing outside this file needs to change — components only talk to
+ *   `useVotes` (see `@/hooks/useVotes`).
  */
 
 const STORAGE_PREFIX = 'rivals-votes:'
 
-export async function getVotes(heroId: string): Promise<VoteTally> {
+function emptyTally(): VoteTally {
+  return { a: 0, b: 0 }
+}
+
+function emptyBreakdown(): VoteBreakdown {
+  const byRank = {} as Record<RankTier, VoteTally>
+  for (const { value } of RANK_OPTIONS) {
+    byRank[value] = emptyTally()
+  }
+  return { overall: emptyTally(), byRank }
+}
+
+function isBreakdownShape(value: unknown): value is VoteBreakdown {
+  return (
+    !!value &&
+    typeof value === 'object' &&
+    'overall' in (value as Record<string, unknown>) &&
+    'byRank' in (value as Record<string, unknown>)
+  )
+}
+
+export async function getVotes(heroId: string): Promise<VoteBreakdown> {
   try {
     const raw = localStorage.getItem(STORAGE_PREFIX + heroId)
-    return raw ? (JSON.parse(raw) as VoteTally) : { a: 0, b: 0 }
+    if (!raw) return emptyBreakdown()
+
+    const parsed = JSON.parse(raw) as unknown
+    const breakdown = emptyBreakdown()
+
+    if (isBreakdownShape(parsed)) {
+      breakdown.overall = parsed.overall
+      // Merge onto a fresh empty map so a rank added after votes already
+      // existed still shows up with a 0 tally instead of being undefined.
+      breakdown.byRank = { ...breakdown.byRank, ...parsed.byRank }
+      return breakdown
+    }
+
+    // Legacy `{ a, b }` shape from before rank breakdowns existed — keep
+    // the totals, just without a rank split for votes cast before this.
+    const legacy = parsed as Partial<VoteTally>
+    breakdown.overall = { a: legacy.a ?? 0, b: legacy.b ?? 0 }
+    return breakdown
   } catch {
-    return { a: 0, b: 0 }
+    return emptyBreakdown()
   }
 }
 
-export async function castVote(heroId: string, side: VoteSide): Promise<VoteTally> {
+export async function castVote(
+  heroId: string,
+  side: VoteSide,
+  rank: RankTier,
+): Promise<VoteBreakdown> {
   const current = await getVotes(heroId)
-  const next: VoteTally = { ...current, [side]: current[side] + 1 }
+  const next: VoteBreakdown = {
+    overall: { ...current.overall, [side]: current.overall[side] + 1 },
+    byRank: {
+      ...current.byRank,
+      [rank]: { ...current.byRank[rank], [side]: current.byRank[rank][side] + 1 },
+    },
+  }
   try {
     localStorage.setItem(STORAGE_PREFIX + heroId, JSON.stringify(next))
   } catch {
-    // localStorage unavailable (e.g. private browsing) — vote just won't persist
+    // localStorage unavailable — vote just won't persist this session
   }
   return next
 }

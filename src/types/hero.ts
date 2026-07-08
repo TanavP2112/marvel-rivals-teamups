@@ -31,3 +31,29 @@ export interface VoteTally {
   a: number
   b: number
 }
+
+/** Vote totals overall, plus the same totals broken out per rank tier. */
+export interface VoteBreakdown {
+  overall: VoteTally
+  byRank: Record<RankTier, VoteTally>
+}
+
+export type Platform = 'pc' | 'console'
+export type Region = 'americas' | 'asia' | 'europe'
+export type RankTier =
+  | 'bronze'
+  | 'silver'
+  | 'gold'
+  | 'platinum'
+  | 'diamond'
+  | 'grandmaster'
+  | 'celestial'
+  | 'eternity'
+  | 'one-above-all'
+
+/** Collected once, before a visitor's first vote, and remembered locally. */
+export interface VoterProfile {
+  platform: Platform
+  region: Region
+  rank: RankTier
+}

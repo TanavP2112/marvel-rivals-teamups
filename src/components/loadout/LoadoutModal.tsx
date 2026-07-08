@@ -1,10 +1,19 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { ROLE_LABEL } from '@/constants/roles'
+import { PLATFORM_LABEL, RANK_LABEL, REGION_LABEL } from '@/constants/voterProfile'
 import { useVotes } from '@/hooks/useVotes'
-import type { Hero, VoteSide } from '@/types/hero'
+import { useVoterProfile } from '@/hooks/useVoterProfile'
+import type { Hero, VoteSide, VoterProfile } from '@/types/hero'
 import { LoadoutPanel } from './LoadoutPanel'
 import { LockedHeroPanel } from './LockedHeroPanel'
 import { VoteSplitBar } from './VoteSplitBar'
+import { VoterProfileModal } from './VoterProfileModal'
+
+// Recharts is the single heaviest dependency in this app — only load it
+// once someone actually opens a hero's modal, not on first page load.
+const LoadoutRankChart = lazy(() =>
+  import('./LoadoutRankChart').then((m) => ({ default: m.LoadoutRankChart })),
+)
 
 interface LoadoutModalProps {
   hero: Hero | undefined
@@ -13,6 +22,17 @@ interface LoadoutModalProps {
 
 export function LoadoutModal({ hero, onClose }: LoadoutModalProps) {
   const { votes, vote } = useVotes(hero?.unlocked ? hero.id : undefined)
+  const { profile, saveProfile } = useVoterProfile()
+
+  // Which side (if any) is waiting on the profile survey before it's cast.
+  const [pendingVote, setPendingVote] = useState<VoteSide | null>(null)
+  const [editingProfile, setEditingProfile] = useState(false)
+
+  // Reset any in-flight survey state when the open hero changes.
+  useEffect(() => {
+    setPendingVote(null)
+    setEditingProfile(false)
+  }, [hero?.id])
 
   useEffect(() => {
     if (!hero) return
@@ -25,7 +45,31 @@ export function LoadoutModal({ hero, onClose }: LoadoutModalProps) {
 
   if (!hero) return null
 
-  const handleVote = (side: VoteSide) => vote(side)
+  const requestVote = (side: VoteSide) => {
+    if (!profile) {
+      setPendingVote(side)
+    } else {
+      vote(side, profile.rank)
+    }
+  }
+
+  const handleProfileSubmit = (next: VoterProfile) => {
+    saveProfile(next)
+    if (pendingVote) {
+      // Use `next.rank` (not `profile`) since the just-submitted profile
+      // hasn't necessarily flowed through a re-render yet.
+      vote(pendingVote, next.rank)
+      setPendingVote(null)
+    }
+    setEditingProfile(false)
+  }
+
+  const handleProfileCancel = () => {
+    setPendingVote(null)
+    setEditingProfile(false)
+  }
+
+  const showSurvey = hero.unlocked && (pendingVote !== null || editingProfile)
 
   return (
     <div
@@ -37,6 +81,12 @@ export function LoadoutModal({ hero, onClose }: LoadoutModalProps) {
       <div className="w-full max-w-[840px] animate-[pop_.18s_ease] overflow-hidden rounded-2xl border border-line bg-panel">
         {!hero.unlocked ? (
           <LockedHeroPanel hero={hero} onClose={onClose} />
+        ) : showSurvey ? (
+          <VoterProfileModal
+            initial={profile}
+            onSubmit={handleProfileSubmit}
+            onCancel={handleProfileCancel}
+          />
         ) : (
           <>
             <div className="flex items-start justify-between border-b border-line px-7 py-6">
@@ -58,8 +108,8 @@ export function LoadoutModal({ hero, onClose }: LoadoutModalProps) {
               <LoadoutPanel
                 label="Loadout A"
                 loadout={hero.loadouts![0]}
-                onVote={() => handleVote('a')}
-                picked={votes.a > votes.b}
+                onVote={() => requestVote('a')}
+                picked={votes.overall.a > votes.overall.b}
               />
               <div className="flex items-center justify-center px-3.5 py-3.5 font-black text-gold">
                 VS
@@ -67,16 +117,45 @@ export function LoadoutModal({ hero, onClose }: LoadoutModalProps) {
               <LoadoutPanel
                 label="Loadout B"
                 loadout={hero.loadouts![1]}
-                onVote={() => handleVote('b')}
-                picked={votes.b > votes.a}
+                onVote={() => requestVote('b')}
+                picked={votes.overall.b > votes.overall.a}
               />
             </div>
 
             <VoteSplitBar
-              votes={votes}
+              votes={votes.overall}
               labelA={hero.loadouts![0].partner}
               labelB={hero.loadouts![1].partner}
             />
+
+            <Suspense
+              fallback={
+                <div className="flex h-[220px] items-center justify-center border-t border-line text-[13px] text-neutral-500">
+                  Loading rank breakdown…
+                </div>
+              }
+            >
+              <LoadoutRankChart
+                byRank={votes.byRank}
+                labelA={hero.loadouts![0].partner}
+                labelB={hero.loadouts![1].partner}
+              />
+            </Suspense>
+
+            {profile && (
+              <div className="flex items-center justify-center gap-2 border-t border-line px-7 py-3 text-[11.5px] text-neutral-400">
+                <span>
+                  Voting as {PLATFORM_LABEL[profile.platform]} · {REGION_LABEL[profile.region]} ·{' '}
+                  {RANK_LABEL[profile.rank]}
+                </span>
+                <button
+                  onClick={() => setEditingProfile(true)}
+                  className="font-bold text-gold hover:underline"
+                >
+                  change
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>
