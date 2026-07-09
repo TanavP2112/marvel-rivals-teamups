@@ -9,6 +9,7 @@ export interface Loadout {
   enhanced: string
   /** False until NetEase has published exact enhanced-effect numbers. */
   enhancedConfirmed: boolean
+  name?: string
 }
 
 export interface Hero {

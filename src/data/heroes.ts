@@ -262,15 +262,17 @@ export const HEROES: Hero[] = [
     note: 'Base health buffed to 650; shield cap scaled to 850.',
     loadouts: [
       {
-        partner: 'Iron Man',
-        base: 'Opening a portal clears harmful negative status effects from entering allies.',
-        enhanced: 'Allies gain brief speed out of the portal when Iron Man is present.',
+        partner: 'Invisible Woman',
+        name: 'Psionic Vortex',
+        base: 'Invisible Woman enhances Doctor Strange\'s Maelstrom of Madness with a psionic explosion.The explosion damages and pulls enemies toward Doctor Strange.',
+        enhanced: 'Based on the explosion\'s damage, Doctor Strange and nearby allies gain Bonus Health.',
         enhancedConfirmed: false,
       },
       {
-        partner: 'Spider-Man',
-        base: 'Levitation abilities consume less internal mystical energy over time.',
-        enhanced: 'Levitation speed enhanced if Spider-Man is on your team.',
+        partner: 'Hulk',
+        name: 'Gamma Maelstrom',
+        base: 'Hulk charges Doctor Strange with gamma radiation. When Doctor Strange uses Maelstrom of Madness, he unleashes excess gamma energy.',
+        enhanced: 'Maelstrom of Madness refunds 50 charge after it is used. Dr.Strange no longer inflicts anti-heal on himself when using Maelstrom of Madness and charge does not decay',
         enhancedConfirmed: false,
       },
     ],
@@ -326,15 +328,17 @@ export const HEROES: Hero[] = [
     note: 'Base health increased to 850.',
     loadouts: [
       {
-        partner: 'Rocket Raccoon',
+        partner: 'Jeff the Land Shark',
+        name: 'Bubble Buddies',
         base: 'Spawning a wooden wall wall expands active healing zone coverage.',
         enhanced: 'Wall durability increased if Rocket Raccoon is on your team.',
         enhancedConfirmed: false,
       },
       {
         partner: 'Mantis',
-        base: 'Rooting an enemy with vine traps triggers a small health burst for nearby friends.',
-        enhanced: 'Burst healing amount increased when Mantis is present.',
+        name: "Wild Wall",
+        base: 'Place a wild wall to heal yourself',
+        enhanced: 'Wild wall can now heal allies.',
         enhancedConfirmed: false,
       },
     ],
@@ -390,13 +394,13 @@ export const HEROES: Hero[] = [
     note: 'HP reduced to 400; uses 300 Regenerative Shield. Basic punch damage up to 45.',
     loadouts: [
       {
-        partner: 'Captain America',
-        base: 'Gain a ground-slam attack that damages and knocks back nearby enemies.',
+        partner: 'Captain America - Savage Slam',
+        base: 'Gain a ground-slam attack that damages nearby enemies',
         enhanced: 'Upgraded version confirmed when Captain America is on your team — exact numbers land with full patch notes.',
         enhancedConfirmed: false,
       },
       {
-        partner: 'Wolverine',
+        partner: 'Wolverine - Gamma Fastball',
         base: 'Gain crowd-control immunity, shrugging off stuns and roots.',
         enhanced: 'Upgraded version confirmed when Wolverine is on your team — exact numbers land with full patch notes.',
         enhancedConfirmed: false,
